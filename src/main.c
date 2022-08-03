@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     XWindowAttributes windowAttr;
     XGetWindowAttributes(disp, window, &windowAttr);
     pax_buf_init(&buf, NULL, windowAttr.width, windowAttr.height, PAX_BUF_32_8888ARGB);
-    // pax_enable_multicore(0);
+    pax_enable_multicore(0);
     
     // look for events forever...
     while(1) {
