@@ -94,27 +94,29 @@ void testing_loop() {
         uint64_t now = millis();
         pax_background(&buf, 0);
         
-        // float x = sinf(now % 8000 / 8000.0 * 2 * M_PI);
-        // float y = cosf(now % 8000 / 8000.0 * 2 * M_PI);
-        // pax_enable_shape_aa = true;
-        // pax_draw_rect(&buf, 0xffffffff, 80 + x*20, 80 + y*20, 40, 40);
-        // pax_enable_shape_aa = false;
-        // pax_draw_rect(&buf, 0xffffffff, 160 + x*20, 80 + y*20, 40, 40);
-        
+        float x = sinf(now % 8000 / 8000.0 * 2 * M_PI);
+        float y = cosf(now % 8000 / 8000.0 * 2 * M_PI);
+        float w = 10 + 10 * sinf(now % 6000 / 6000.0 * 2 * M_PI);
+        float h = 10 + 10 * cosf(now % 9000 / 9000.0 * 2 * M_PI);
         pax_enable_shape_aa = true;
-        pax_push_2d(&buf);
-            pax_apply_2d(&buf, matrix_2d_translate(100, 100));
-            pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
-            pax_apply_2d(&buf, matrix_2d_scale(20, 20));
-            pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
-        pax_pop_2d(&buf);
+        pax_draw_rect(&buf, 0xffffffff, 90 + x*20, 80 + y*20, w, h);
         pax_enable_shape_aa = false;
-        pax_push_2d(&buf);
-            pax_apply_2d(&buf, matrix_2d_translate(180, 100));
-            pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
-            pax_apply_2d(&buf, matrix_2d_scale(20, 20));
-            pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
-        pax_pop_2d(&buf);
+        pax_draw_rect(&buf, 0xffffffff, 180 + x*20, 80 + y*20, w, h);
+        
+        // pax_enable_shape_aa = true;
+        // pax_push_2d(&buf);
+        //     pax_apply_2d(&buf, matrix_2d_translate(100, 100));
+        //     pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
+        //     pax_apply_2d(&buf, matrix_2d_scale(20, 20));
+        //     pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
+        // pax_pop_2d(&buf);
+        // pax_enable_shape_aa = false;
+        // pax_push_2d(&buf);
+        //     pax_apply_2d(&buf, matrix_2d_translate(180, 100));
+        //     pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
+        //     pax_apply_2d(&buf, matrix_2d_scale(20, 20));
+        //     pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
+        // pax_pop_2d(&buf);
         
         disp_flush();
         usleep(16000);
