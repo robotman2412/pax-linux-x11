@@ -25,7 +25,25 @@ int main(int argc, char **argv) {
     XGetWindowAttributes(disp, window, &windowAttr);
     pax_buf_init(&buf, NULL, windowAttr.width, windowAttr.height, PAX_BUF_32_8888ARGB);
     // pax_enable_multicore(0);
-    testing_loop();
+    
+    // Test FONT stuff.
+    FILE *fd = fopen("/tmp/pax_font_test", "w+");
+    pax_store_font(fd, pax_font_saira_regular);
+    fseek(fd, 0, SEEK_SET);
+    // FILE *fd = fopen("/tmp/sky.paxfont", "r");
+    pax_font_t *sky = pax_load_font(fd);
+    if (!sky) return 1;
+    
+    // Draw using the newly loaded font.
+    while (1) {
+        pax_background(&buf, 0xff000000);
+        // pax_draw_rect(&buf, 0xffff0000, 5, 5, 10, 10);
+        pax_draw_text(&buf, 0xffffffff, sky, 9, 5, 5, "The quick brown fox jumped over the lazy dog.");
+        disp_flush();
+        usleep(16000);
+    }
+    // testing_loop();
+    return 0;
 }
 
 void event_loop() {
