@@ -27,10 +27,10 @@ int main(int argc, char **argv) {
     // pax_enable_multicore(0);
     
     // Test FONT stuff.
-    FILE *fd = fopen("/tmp/pax_font_test", "w+");
-    pax_store_font(fd, pax_font_saira_regular);
-    fseek(fd, 0, SEEK_SET);
-    // FILE *fd = fopen("/tmp/sky.paxfont", "r");
+    // FILE *fd = fopen("/tmp/pax_font_test", "w+");
+    // pax_store_font(fd, pax_font_saira_regular);
+    // fseek(fd, 0, SEEK_SET);
+    FILE *fd = fopen("font.pax_font", "r");
     pax_font_t *sky = pax_load_font(fd);
     if (!sky) return 1;
     
