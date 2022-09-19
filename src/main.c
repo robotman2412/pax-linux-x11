@@ -30,15 +30,15 @@ int main(int argc, char **argv) {
     // FILE *fd = fopen("/tmp/pax_font_test", "w+");
     // pax_store_font(fd, pax_font_saira_regular);
     // fseek(fd, 0, SEEK_SET);
-    FILE *fd = fopen("font.pax_font", "r");
-    pax_font_t *sky = pax_load_font(fd);
-    if (!sky) return 1;
+    FILE *fd = fopen("/home/julian/Downloads/Comic Neue.pax_font", "r");
+    pax_font_t *font = pax_load_font(fd);
+    if (!font) return 1;
     
     // Draw using the newly loaded font.
     while (1) {
         pax_background(&buf, 0xff000000);
         // pax_draw_rect(&buf, 0xffff0000, 5, 5, 10, 10);
-        pax_draw_text(&buf, 0xffffffff, sky, 9, 5, 5, "The quick brown fox jumped over the lazy dog.");
+        pax_draw_text(&buf, 0xffffffff, font, font->default_size, 5, 5, "The quick brown fox jumped over the lazy dog.");
         disp_flush();
         usleep(16000);
     }
