@@ -37,7 +37,7 @@ run: $(OUT_PATH)
 # Regular files
 build/app.o: $(OBJECTS) components/pax-gfx/build/libpax.so
 	@mkdir -p $(shell dirname $@)
-	$(MAKE) -C components/pax-gfx -f Standalone.mk all
+	@$(MAKE) --no-print-directory -C components/pax-gfx -f Standalone.mk all
 	$(CC) $(LDOPTIONS) -o $@ $^ $(LIBS)
 
 build/%.o: src/% $(HEADERS)
@@ -47,7 +47,7 @@ build/%.o: src/% $(HEADERS)
 # Debug files
 build/app.debug.o: $(OBJECTS_DEBUG) components/pax-gfx/build/libpax.so
 	@mkdir -p $(shell dirname $@)
-	$(MAKE) -C components/pax-gfx -f Standalone.mk debug
+	@$(MAKE) --no-print-directory -C components/pax-gfx -f Standalone.mk debug
 	$(CC) $(LDOPTIONS) -o $@ $^ $(LIBS)
 
 build/%.debug.o: src/% $(HEADERS)
