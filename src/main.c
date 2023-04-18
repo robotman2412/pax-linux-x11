@@ -30,19 +30,22 @@ int main(int argc, char **argv) {
     // FILE *fd = fopen("/tmp/pax_font_test", "w+");
     // pax_store_font(fd, pax_font_saira_regular);
     // fseek(fd, 0, SEEK_SET);
-    FILE *fd = fopen("/home/julian/Downloads/Comic Neue.pax_font", "r");
-    pax_font_t *font = pax_load_font(fd);
-    if (!font) return 1;
+    // FILE *fd = fopen("/home/julian/Downloads/sky mono(3).pax_font", "rb");
+    // pax_font_t *font = pax_load_font(fd);
+    // FILE *fd = fopen("/home/julian/Downloads/Sky mono.pax_font", "wb");
+    // pax_store_font(fd, pax_font_sky_mono);
+    // if (!font) return 1;
+    // return;
     
     // Draw using the newly loaded font.
-    while (1) {
-        pax_background(&buf, 0xff000000);
-        // pax_draw_rect(&buf, 0xffff0000, 5, 5, 10, 10);
-        pax_draw_text(&buf, 0xffffffff, font, font->default_size, 5, 5, "The quick brown fox jumped over the lazy dog.");
-        disp_flush();
-        usleep(16000);
-    }
-    // testing_loop();
+    // while (1) {
+    //     pax_background(&buf, 0xff000000);
+    //     pax_draw_rect(&buf, 0xffff0000, 5, 5, 10, 10);
+    //     pax_draw_text(&buf, 0xffffffff, font, font->default_size, 5, 5, "The quick brown fox jumped over the lazy dog.");
+    //     disp_flush();
+    //     usleep(16000);
+    // }
+    testing_loop();
     return 0;
 }
 
@@ -116,25 +119,25 @@ void testing_loop() {
         float y = cosf(now % 8000 / 8000.0 * 2 * M_PI);
         float w = 10 + 10 * sinf(now % 6000 / 6000.0 * 2 * M_PI);
         float h = 10 + 10 * cosf(now % 9000 / 9000.0 * 2 * M_PI);
-        pax_enable_shape_aa = true;
-        pax_draw_rect(&buf, 0xffffffff, 90 + x*20, 80 + y*20, w, h);
-        pax_enable_shape_aa = false;
-        pax_draw_rect(&buf, 0xffffffff, 180 + x*20, 80 + y*20, w, h);
-        
         // pax_enable_shape_aa = true;
-        // pax_push_2d(&buf);
-        //     pax_apply_2d(&buf, matrix_2d_translate(100, 100));
-        //     pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
-        //     pax_apply_2d(&buf, matrix_2d_scale(20, 20));
-        //     pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
-        // pax_pop_2d(&buf);
+        // pax_draw_rect(&buf, 0xffffffff, 90 + x*20, 80 + y*20, w, h);
         // pax_enable_shape_aa = false;
-        // pax_push_2d(&buf);
-        //     pax_apply_2d(&buf, matrix_2d_translate(180, 100));
-        //     pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
-        //     pax_apply_2d(&buf, matrix_2d_scale(20, 20));
-        //     pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
-        // pax_pop_2d(&buf);
+        // pax_draw_rect(&buf, 0xffffffff, 180 + x*20, 80 + y*20, w, h);
+        
+        pax_enable_shape_aa = true;
+        pax_push_2d(&buf);
+            pax_apply_2d(&buf, matrix_2d_translate(100, 100));
+            pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
+            pax_apply_2d(&buf, matrix_2d_scale(20, 20));
+            pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
+        pax_pop_2d(&buf);
+        pax_enable_shape_aa = false;
+        pax_push_2d(&buf);
+            pax_apply_2d(&buf, matrix_2d_translate(180, 100));
+            pax_apply_2d(&buf, matrix_2d_rotate(now % 8000 / 8000.0 * 2 * M_PI));
+            pax_apply_2d(&buf, matrix_2d_scale(20, 20));
+            pax_draw_tri(&buf, 0xffffffff, -1, -1, 1, -1, 0, 1);
+        pax_pop_2d(&buf);
         
         disp_flush();
         usleep(16000);

@@ -2,7 +2,7 @@
 # Options
 CC            ?=/usr/bin/gcc
 BUILD_DIR     ?=build
-CCOPTIONS     ?=-c -Isrc -Icomponents/pax-gfx/src
+CCOPTIONS     ?=-c -Isrc -Icomponents/pax-gfx/src -Icomponents/pax-gfx/src/cxx -Icomponents/pax-gfx/src/fonts
 LDOPTIONS     ?=
 LIBS          ?=-lX11 -lm
 
@@ -16,7 +16,7 @@ OBJECTS_DEBUG  =$(shell echo $(SOURCES) | sed -e 's/src/$(BUILD_DIR)/g;s/\.c/.c.
 OUT_PATH      ?=paxlinux
 
 # Actions
-.PHONY: all debug clean run components/pax-gfx/build/libpax.so
+.PHONY: all debug clean run components/pax-gfx/build/libpax_graphics.a
 
 all: build/app.o
 	@mkdir -p build
@@ -35,7 +35,7 @@ run: $(OUT_PATH)
 	./$(OUT_PATH)
 
 # Regular files
-build/app.o: $(OBJECTS) components/pax-gfx/build/libpax.so
+build/app.o: $(OBJECTS) components/pax-gfx/build/libpax_graphics.a
 	@mkdir -p $(shell dirname $@)
 	@$(MAKE) --no-print-directory -C components/pax-gfx -f Standalone.mk all
 	$(CC) $(LDOPTIONS) -o $@ $^ $(LIBS)
@@ -45,7 +45,7 @@ build/%.o: src/% $(HEADERS)
 	$(CC) $(CCOPTIONS) -o $@ $< $(LIBS)
 
 # Debug files
-build/app.debug.o: $(OBJECTS_DEBUG) components/pax-gfx/build/libpax.so
+build/app.debug.o: $(OBJECTS_DEBUG) components/pax-gfx/build/libpax_graphics.a
 	@mkdir -p $(shell dirname $@)
 	@$(MAKE) --no-print-directory -C components/pax-gfx -f Standalone.mk debug
 	$(CC) $(LDOPTIONS) -o $@ $^ $(LIBS)
